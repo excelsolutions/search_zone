@@ -8,17 +8,28 @@ excel_nowa_strefa = pandas.read_excel(path, sheet_name='NOWE strefy 2022-04-01',
 excel_przewoznicy = pandas.read_excel(path, sheet_name='Przewoźnicy', usecols=['Pełna strefa', 'Nowa opcja', 'SN'])
 excel_kody = pandas.read_excel(path, sheet_name='KODY')
 
-# excel_data.set_index('Waluta')
 # excel_data.set_index(["od kodu", "do kodu"], inplace = True, append = True, drop = False)
 kod = 55012
 nowa_strefa = 0
 # PONIŻSZE DZIALA!!!
 # df2=excel_data.loc[(excel_data['od kodu'] <= kod) & (excel_data['do kodu'] >= kod), 'od kodu']
 os.system('color')
-while kod != 0:
-    kod = (input(colored('Podaj kod pocztowy: ', 'red', attrs=['reverse', 'blink']) + "\n"))
+def Terminate_Program():
+    root.destroy()
 
+def clearConsole():
+    command = 'clear'
+    if os.name in ('nt', 'dos'):  # If Machine is running on Windows, use cls
+        command = 'cls'
+    os.system(command)
+
+while kod != 0:
+
+    kod = (input(colored('Podaj kod pocztowy: ', 'red', attrs=['reverse', 'blink']) + "\n"))
+    print('Trwa wyszukiwanie ... ' + "\n")
     try:
+        if kod == 0:
+            Terminate_Program()
         if (kod[2] =="-"):
             kod = str(kod[:2] ) + str(kod[3:])
         kod = int(kod)
@@ -52,6 +63,8 @@ while kod != 0:
     except:
         print('\033[93m' + "Podałeś błedny kod, lub nie można znaleźć rekordu." + '\033[0m')
 
+    input('Aby kontynuować naciśnij enter ...' + "\n")
+    clearConsole()
 
 # print(df2)
 
